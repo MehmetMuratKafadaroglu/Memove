@@ -1,0 +1,117 @@
+{% extends "blog/base.html" %}
+{% block title %}Memove{% endblock %}
+
+   {% block content %}
+
+   <label for="min_price"> Minimum price</label>
+
+   <select name="min_price" id="min_price">
+        <option value=0 selected>None</option>
+        <option value=10000>10000£</option>
+        <option value=25000>25000£</option>
+        <option value=50000>50000£</option>
+        <option value=75000>75000£</option>
+        <option value=100000>100000£</option>
+        <option value=150000>150000£</option>
+        <option value=200000>200000£</option>
+        <option value=250000>250000£</option>
+        <option value=300000>300000£</option>
+        <option value=350000>350000£</option>
+        <option value=400000>400000£</option>
+        <option value=450000>450000£</option>
+        <option value=500000>500000£</option>
+        <option value=550000>550000£</option>
+        <option value=600000>600000£</option>
+        <option value=650000>650000£</option>
+        <option value=700000>700000£</option>
+        <option value=750000>750000£</option>
+        <option value=800000>800000£</option>
+        <option value=850000>850000£</option>
+        <option value=900000>900000£</option>
+        <option value=950000>950000£</option>
+        <option value=1000000>1000000£</option>
+    </select>
+    
+    <label for="max_price"> Maximum price</label>
+
+   <select name="max_price" id="max_price">
+        <option value=0>None</option>
+        <option value=10000>10000£</option>
+        <option value=25000>25000£</option>
+        <option value=50000>50000£</option>
+        <option value=75000>75000£</option>
+        <option value=100000>100000£</option>
+        <option value=150000>150000£</option>
+        <option value=200000>200000£</option>
+        <option value=250000>250000£</option>
+        <option value=300000>300000£</option>
+        <option value=350000>350000£</option>
+        <option value=400000>400000£</option>
+        <option value=450000>450000£</option>
+        <option value=500000>500000£</option>
+        <option value=550000>550000£</option>
+        <option value=600000>600000£</option>
+        <option value=650000>650000£</option>
+        <option value=700000>700000£</option>
+        <option value=750000>750000£</option>
+        <option value=800000>800000£</option>
+        <option value=850000>850000£</option>
+        <option value=900000>900000£</option>
+        <option value=950000>950000£</option>
+        <option value=1000000 selected>1000000£</option>
+    </select>
+
+    <label for="min_beds"> Minimum number of beds</label>
+    <select name="min_beds" id="min_beds">
+        <option value=0>Studio</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+        <option value=9>9</option>
+    </select>
+
+    <label for="max_beds"> Maximum number of beds</label>
+    <select name="max_beds" id="max_beds">
+        <option value=0>Studio</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+        <option value=9 selected>9</option>
+    </select>
+
+    <input type="checkbox" id="house" name="house" value="house">
+    <label for="house">House</label><br>
+    <input type="checkbox"  id="flat" name="flat" value="flat">
+    <label for="flat">Flat</label>
+    <input type="checkbox" id="boat" name="boat" value="boat">
+    <label for="boat">Boat</label>
+
+    <label for="min_baths"> Minimum number of baths</label>
+    <select name="min_baths" id="min_baths">
+        <option value=1 selected>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+    </select>
+
+    <label for="max_baths"> Maximum number of baths</label>
+    <select name="max_baths" id="max_baths">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4 selected>4</option>
+    </select>
+    <button class="final_button" type="button" onclick="filter()">Find properties</button> 
+<script src="../static/js/filter.js"></script>
+   {% endblock %}
+

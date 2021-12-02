@@ -1,0 +1,13 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Memove sell your property {% endblock %}
+
+{% block content %}
+    <h1>Sell or let your property</h1>
+    <form method="POST" class="form-group" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="button">Create</button>
+    </form>
+{% endblock %}

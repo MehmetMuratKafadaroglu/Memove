@@ -1,0 +1,12 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Memove sell your property {% endblock %}
+
+{% block content %}
+    <h1>Delete Your Property</h1>
+    <form method="POST" class="form-group" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="button">Delete</button>
+    </form>
+{% endblock %}

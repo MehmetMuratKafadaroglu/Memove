@@ -1,0 +1,13 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Create an account! {% endblock %}
+
+{% block content %}
+    <h1>Create Your Account</h1>
+    <form method="POST" id="register-form" class="form-group" enctype="multipart/form-data">
+        {{form.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="button">Create</button>
+    </form>
+{% endblock %}

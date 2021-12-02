@@ -1,0 +1,56 @@
+{% load static %}
+   <!DOCTYPE html>
+   <html>
+   <head>
+     <title>{% block title %}{% endblock %}</title>
+     
+
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <link href="/static/css/blog2.css" rel="stylesheet">
+     <link href="/static/css/lightbox.css" rel="stylesheet">
+   </head>
+   <body>
+     
+    <ul class="menu">
+      <li><a href="/">
+        <b>MeMove</b>
+      </a></li>
+      {% if request.user.is_authenticated %}
+      <li><a href="../../../register/logout">Logout</a></li>
+      <li><a href="../../../register/profile">Profile</a></li>
+      {% else %}
+      <li><a href="../../../login">Log in</a></li>
+      {% endif %}
+      <li><a href="../../../new">Sell your property</a></li>
+    </ul>
+    <div class="container"> 
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+     <div id="content">
+       {% block content %}
+       {% endblock %}
+     </div>
+    
+     <!--<div id="sidebar">
+       <h2>My blog</h2>
+         <p>This is my blog.</p>
+     </div>-->
+    </div>
+    <div class="footer">
+      <p class="footer-message">Copyright 2021</p>
+    </div>
+   </body>
+   <script defer src="/static/js/filter.js"></script>
+   <script src="/static/js/slideshow.js"></script>
+   <script defer src="/static/js/lightbox.js"></script>
+  
+   </html>

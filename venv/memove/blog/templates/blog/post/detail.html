@@ -1,0 +1,109 @@
+{% extends "blog/base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+   {% block content %}
+     <h1>{{ post.title }}</h1>
+     
+     <!-- slider starts here -->
+     <div class="slideshow-container">
+
+      <div class="mySlides">
+        <div class="numbertext">X</div>
+
+    {% if post.main_image %}
+     <img src="../../media/{{ post.main_image }}" class="property_img">
+     {% else %}
+     <img src="../../media/default.jpeg" class="property_img">
+     {% endif %}
+    </div>
+    {% if request.user.is_authenticated %}
+     <button type="button" id="save_button" onclick="Save()">Save</button>
+     <p id="warning_button">Something went wrong</p>
+     {% endif %}
+     {% for img in post.get_pictures %}
+     <div class="mySlides">
+      <div class="numbertext">X</div>
+      <img src="../../media/{{ img.property_pic }}" class="property_img">
+    </div>
+     {% endfor %}
+
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <!-- slider ends here  -->
+    <div style="text-align:center">
+    
+    <div id="abcc"></div>
+    <script>
+      function sett(){
+        var s1="", x =1 + {{ post.get_pictures.count }};
+        for (var i=1;i<=x && i<=10 ;i++)
+            s1 = s1 + "<sp"+"an class='dot' onclick='currentSlide("+ i +")''></sp"+"an>";
+        document.getElementById("abcc").innerHTML = s1;
+      }
+
+      document.onload=sett();
+      sett();
+    </script>
+    
+    </div>
+
+
+    {{ post.body|linebreaks }}
+     <p>{{ post.address }} {{ post.city }} {{ post.postcode }}</p>
+     <p>This property have {{ post.number_of_beds }} beds and {{ post.number_of_baths }} baths</p>
+     <p>Price of this property is {{ post.price }}£</p><br>
+      <iframe src="../../static/maps/{{ post.id}}.html" class="detail_map"></iframe></br>
+    </br>
+    <!--{% for i in railway_stations%}
+    <p>{{i.distance|floatformat:"0"}} Metre to {{i.search_name}} Station</p> <br>
+    {%endfor%}-->
+    <br>
+    <br>
+    
+    <!--{% for i in schools%}
+    <p>{{i.distance|floatformat:"0"}} Metre to {{i.search_name}}</p> <br>
+    {%endfor%}-->
+    
+    <img src='../../media/{{ post.author.profile_photo }}'>
+    <!--<p>{{ post.author.phone_number }}</p>-->
+      {% ifequal post.type_of_ad  'sale' %}
+      <div>
+        <form>
+            <label for="property-price">Property Price in £:</label>
+            <input type="number" id="property-price" value="{{post.price}}" ><br>
+            
+            <label for="deposit">Deposit</label>
+            <input type="number" id="deposit" value="{{post.price}}">
+
+            <label for="interest-rate">Interest Rate:</label>
+            <input type="number" id="interest-rate" value="4"><br>
+  
+            <label for="number-of-years">Number of Years:</label>
+            <input type="number" id="number-of-years" value="20"><br>
+  
+            <button type="button" onclick="mortgage_calculate()" id="calculateID">Calculate</button>
+        </form>
+        
+        <label for="payments-per-month">Payments Per Month in £</label>
+        <input type="number" id="payments-per-month"><br>
+    </div>
+    <script src="/static/js/mortgage.js"></script>
+    {% endifequal %}
+    
+     {% if user.id == post.author_id %}
+     <a href="{{ post.post_update_url }}" class="lnk">Edit</a>
+     <a href="{{ post.property_picture_form }}" class="lnk" >Upload Pictures</a>
+     <a href="{{ post.post_delete }}" class="lnk" >Delete</a>
+     <a href="{{ post.property_plan_form }}" class="lnk" >Upload Property Plan</a>
+    {% endif %}
+  <div class="grid">
+    {% if post.plan_exists %}
+    {% for plan in post.get_plan %}
+        <img src="../../media/{{ plan.property_plan }}" class="property_plan">
+    {% endfor %}
+    {%endif%}
+  </div>
+  <script src="/static/js/save.js"></script>
+   {% endblock %}
+  
+   

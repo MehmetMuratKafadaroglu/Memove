@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Memove sell your property {% endblock %}
+
+{% block content %}
+<h1>Sell or let your property</h1>
+    <form method="POST" class="form-group" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="filter">Create</button>
+    </form>
+     
+    <!-- slider starts here -->
+       {% for img in post.get_pictures %}
+       <div>
+        <img src="../../media/{{ img.property_pic }}" class="delete_img">
+        <a href="{{ img.picture_delete }}" class="lnk"> Delete this picture </a>
+      </div>
+       {% endfor %}
+    <!-- slider ends here -->
+      
+{% endblock %}
