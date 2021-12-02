@@ -1,0 +1,167 @@
+DROP TABLE auth_group CASCADE;
+DROP TABLE auth_group_permissions;
+DROP TABLE auth_permission CASCADE;
+DROP TABLE blog_pictures;
+DROP TABLE blog_post CASCADE;
+DROP TABLE blog_postcodes;
+DROP TABLE blog_propertyplan;
+DROP TABLE blog_boundaries CASCADE;
+DROP TABLE blog_boroughs CASCADE;
+DROP TABLE blog_distances CASCADE;
+DROP TABLE django_admin_log;
+DROP TABLE django_content_type CASCADE;
+DROP TABLE django_migrations;
+DROP TABLE django_session;
+DROP TABLE user_user CASCADE;
+DROP TABLE user_user_groups;
+DROP TABLE user_user_user_permissions;
+-------------------------------------------------------------------------------------------------------------------------
+INSERT INTO blog_postcodes(postcode, latitude,  longitude, easting, northing, grid_ref, county, district, ward, district_code, ward_code, 
+country, county_code, constituency, rural_urban, region, london_zone, nearest_station, distance_to_station, postcode_area,
+postcode_district, plus_code) 
+SELECT * FROM postcodes_saved;
+----------------------------------------------------------------------------------------------------------------------------
+\i C:/postGIS_data/test.sql
+----------------------------------------------------------------------------------------------------------------------------
+shp2pgsql -D -I -s 27700 C:\mapping\Data\Wales\community_ward_region.shp community_ward_region psql dbname=test user=postgres host=localhost > C:\postGIS_data\test.sql
+----------------------------------------------------------------------------------------------------------------------------
+ST_Contains(geom1, geom2) --> evin belli bir bolgenin icinde olup olmadigini gostermek icin
+ST_Buffer(geom, Distance_in_meters) --> belli bir bolgeye 1 km gibi aramalar yapmak icin
+ST_Distance(geom1, geom2)--> belli bir bolgeye distance icin
+ORDER BY ST_Distance(geom1, geom2) --> en yakin istasyonu bulmak icin kullanilabilir
+ ----------------------------------------------------------------------------------------------------------------------------
+Bir yerin latitude ve longitude unu almak icin bu yapilmali
+ST_AsText(ST_transform(geom,4326))
+SELECT name ,ST_AsText(ST_transform(geom,4326)) FROM public.test_shp
+----------------------------------------------------------------------------------------------------------------------------
+Bir noktaya uzakligina gore siralamak icin
+evin istasyona uzakligi icin kullanilacak
+
+SELECT blog_boundaries.*, 
+ST_Distance(ST_Transform(geom,27700),ST_Transform(ST_SetSRID( ST_Point(longitude , latitude)::geometry, 4326),27700)) 
+FROM blog_boundaries, blog_post 
+WHERE type='Railway Station' and blog_post.postcode='N22 5QY' 
+ORDER BY ST_Distance(ST_Transform(geom,27700),
+ST_Transform(ST_SetSRID( ST_Point(longitude , latitude)::geometry, 4326),27700)) LIMIT 3;
+----------------------------------------------------------------------------------------------------------------------------
+INSERT INTO blog_nearestrailwaystations(distance, boundary_id, postcode_id)
+SELECT ST_Distance(ST_Transform(geom,27700), 
+ST_Transform(ST_SetSRID( ST_Point(longitude , latitude)::geometry, 4326),27700)),
+blog_boundaries.id,
+blog_post.id
+FROM blog_boundaries, blog_post
+WHERE type='Railway Station' and blog_post.postcode='N22 5QY' 
+ORDER BY ST_Distance(ST_Transform(geom,27700),
+ST_Transform(ST_SetSRID( ST_Point(longitude , latitude)::geometry, 4326),27700)) LIMIT 3;
+----------------------------------------------------------------------------------------------------------------------------
+INSERT INTO schools(geom, latitude, longitude, name)
+SELECT st_transform(ST_PointFromText( concat('POINT(',geometry_x,' ',geometry_y,')') , 27700),4326),
+ST_Y(st_transform(ST_PointFromText( concat('POINT(',geometry_x,' ',geometry_y,')') , 27700),4326)),ST_X(st_transform(ST_PointFromText( concat('POINT(',geometry_x,' ',geometry_y,')') , 27700),4326)),
+name1
+FROM names WHERE local_type = 'Primary Education';
+----------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE names (
+id VARCHAR(50),
+NAMES_URI VARCHAR(100),
+name1 VARCHAR(150),
+name1_lang VARCHAR(5),
+name2 VARCHAR(150),
+name2_lang VARCHAR(5),
+type VARCHAR(16),
+local_type VARCHAR(150),
+geometry_x VARCHAR(20),
+geometry_y VARCHAR(20),
+MOST_DETAIL_VIEW_RES VARCHAR(150),
+LEAST_DETAIL_VIEW_RES VARCHAR(150),
+MBR_XMIN VARCHAR(25),
+MBR_YMIN VARCHAR(25),
+MBR_XMAX VARCHAR(25),
+MBR_YMAX VARCHAR(25),
+postcode_district VARCHAR(5),
+postcode_district_URI VARCHAR(150),
+populated_place VARCHAR(150),
+POPULATED_PLACE_URI VARCHAR(150),
+POPULATED_PLACE_TYPE VARCHAR(150),
+DISTRICT_BOROUGH VARCHAR(150),
+DISTRICT_BOROUGH_URI VARCHAR(150),
+DISTRICT_BOROUGH_TYPE VARCHAR(150),
+COUNTY_UNITARY VARCHAR(150),
+COUNTY_UNITARY_URI VARCHAR(150),
+COUNTY_UNITARY_TYPE VARCHAR(150),
+REGION VARCHAR(150),
+REGION_URI VARCHAR(150),
+COUNTRY VARCHAR(150),
+COUNTRY_URI VARCHAR(150),
+RELATED_SPATIAL_OBJECT VARCHAR(150),
+SAME_AS_DBPEDIA VARCHAR(150),
+SAME_AS_GEONAMES VARCHAR(150))
+;
+----------------------------------------------------------------------------------------------------------------------------                                                 
+COPY Bakerloo A-Z (all stations)Stations.csv
+FROM 'C:\mapping\web_scraping\Files\Bakerloo\Bakerloo A-Z (all stations)Stations.csv' 
+DELIMITER ',' 
+CSV HEADER;
+----------------------------------------------------------------------------------------------------------------------------                                                    
+district_borough_unitary_region --> boroughs
+district_borough_unitary_ward_region --> wards
+boundary_line_ceremonial_counties_region --> counties
+----------------------------------------------------------------------------------------------------------------------------                                                      
+CREATE TABLE boundaries(
+id SERIAL,
+search_name VARCHAR(100) NULL,
+name VARCHAR(100),
+borough VARCHAR(80) NULL,
+county VARCHAR(50) NULL,
+geom geometry,
+type VARCHAR(7),
+PRIMARY KEY (id))
+
+----------------------------------------------------------------------------------------------------------------------------
+INSERT INTO boundaries(name, geom, type)
+SELECT name, geom, type FROM counties;
+----------------------------------------------------------------------------------------------------------------------------
+UPDATE boundaries SET search_name = REPLACE(search_name,'Ward', ''); 
+----------------------------------------------------------------------------------------------------------------------------
+UPDATE boundaries c SET county = (SELECT b.name FROM counties b  WHERE ST_contains(b.geom, c.geom));
+----------------------------------------------------------------------------------------------------------------------------
+st_intersects(t.geom, m.geom) and    
+(st_area(st_intersection(t.geom, m.geom))/st_area(t.geom)) > 0.9
+----------------------------------------------------------------------------------------------------------------------------
+UPDATE boundaries c SET county = (SELECT b.name FROM counties b  WHERE st_intersects(c.geom, b.geom) and    
+(st_area(st_intersection(c.geom, b.geom))/st_area(c.geom)) > 0.9) WHERE county IS NULL;
+----------------------------------------------------------------------------------------------------------------------------
+INSERT INTO distances (km_or_mile, distance) VALUES ('km', 0.5), ('km', 10) ,('km', 25), ('km', 50),('km', 100);
+INSERT INTO distances (km_or_mile, distance) VALUES ('mile', 0.25), ('mile', 0.5), ('mile', 1), ('mile', 3), ('mile', 5), ('mile', 10), ('mile', 20), ('mile', 40);
+----------------------------------------------------------------------------------------------------------------------------
+INSERT INTO london_tube_stations SELECT * FROM london_DLR;
+DELETE FROM london_tube_stations WHERE latitude = '(See Tube List)';
+----------------------------------------------------------------------------------------------------------------------------
+COPY london_overground_stations
+FROM 'C:\mapping\London Tube Stations\London Overground Stations.csv' 
+DELIMITER ',' 
+CSV HEADER;
+----------------------------------------------------------------------------------------------------------------------------
+INSERT INTO uk_railway_stations(geom, underground, overground, dlr, tramway, latitude, longitude, name)
+SELECT st_transform(ST_PointFromText( concat('POINT(',geometry_x,' ',geometry_y,')') , 27700),4326),
+FALSE,
+FALSE,
+FALSE,
+FALSE,
+ST_Y(st_transform(ST_PointFromText( concat('POINT(',geometry_x,' ',geometry_y,')') , 27700),4326)),ST_X(st_transform(ST_PointFromText( concat('POINT(',geometry_x,' ',geometry_y,')') , 27700),4326)),
+name1
+FROM names WHERE local_type = 'Railway Station';
+
+-----------------------------------------------------------------------------------------------------------------
+INSERT INTO boundaries(search_name, name, borough, county, geom, type) 
+SELECT name,
+name,
+,
+county WHERE ST_contains(geom,geom)
+FROM uk_railway_stations
+-----------------------------------------------------------------------------------------------------------------
+UPDATE uk_railway_stations c SET county = 
+(SELECT b.name FROM counties b WHERE ST_Contains(c.geom, b.geom));
+-----------------------------------------------------------------------------------------------------------------
+pgsql2shp -f C:\mapping\shape_files -h localhost -u postgres -P 630991 test "SELECT ST_SetSRID(ST_MakePoint(latitude, longitude),4326) FROM uk_railway_stations;"
+-----------------------------------------------------------------------------------------------------------------
+ALTER SEQUENCE blog_nearestschools_id_seq RESTART WITH 1;
