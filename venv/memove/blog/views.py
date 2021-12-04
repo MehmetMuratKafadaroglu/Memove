@@ -218,8 +218,10 @@ def map_view_list(request):
         folium.Marker(coords[i], 
         popup='<p>Price:%d£</p><p>Number of Beds:%d</p><a href="../property/%d-%s" target=_blank>Touch here to see more details</a> <img src="../media/%s" class=map_view_photo>' %(details[i][3], details[i][2], details[i][1], details[i][0], details[i][4])).add_to(map)
     
+    #To see whether Post exist or not
+    if_plan_exist = Post.plan_exists()
     html_string = map.get_root().render() 
-    return render(request, 'blog/post/map.html', {'html_string' : html_string})
+    return render(request, 'blog/post/map.html', {'html_string' : html_string, 'if_plan_exist': if_plan_exist})
 
 def post_list(request):
         object_list = Post.published.all() 

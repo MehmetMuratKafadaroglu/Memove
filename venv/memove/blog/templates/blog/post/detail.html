@@ -64,7 +64,6 @@
     <p>{{i.distance|floatformat:"0"}} Metre to {{i.search_name}}</p> <br>
     {%endfor%}-->
     
-    <img src='../../media/{{ post.author.profile_photo }}'>
     <!--<p>{{ post.author.phone_number }}</p>-->
       {% ifequal post.type_of_ad  'sale' %}
       <div>
@@ -97,10 +96,10 @@
      <a href="{{ post.property_plan_form }}" class="lnk" >Upload Property Plan</a>
     {% endif %}
   <div class="grid">
-    {% if post.plan_exists %}
-    {% for plan in post.get_plan %}
-        <img src="../../media/{{ plan.property_plan }}" class="property_plan">
-    {% endfor %}
+    {% if if_plan_exist %}
+      {% for plan in post.get_plan %}
+          <img src="../../media/{{ plan.property_plan }}" class="property_plan">
+      {% endfor %}
     {%endif%}
   </div>
   <script src="/static/js/save.js"></script>
