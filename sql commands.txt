@@ -164,4 +164,5 @@ UPDATE uk_railway_stations c SET county =
 -----------------------------------------------------------------------------------------------------------------
 pgsql2shp -f C:\mapping\shape_files -h localhost -u postgres -P 630991 test "SELECT ST_SetSRID(ST_MakePoint(latitude, longitude),4326) FROM uk_railway_stations;"
 -----------------------------------------------------------------------------------------------------------------
-ALTER SEQUENCE blog_nearestschools_id_seq RESTART WITH 1;
+ALTER SEQUENCE stations_id_seq RESTART WITH 1
+ALTER SEQUENCE times_id_seq RESTART WITH 1;

@@ -9,7 +9,7 @@ class PropertyForm(forms.ModelForm):
         'number_of_baths','price','property_type', 'type_of_ad', 'pricing',]  
 
 class PicturesForm(forms.ModelForm):
-    image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True})) 
+    image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
     class Meta:
         model = Pictures
         fields = ('image', )

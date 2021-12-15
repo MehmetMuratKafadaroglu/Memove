@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'blog.apps.BlogConfig',
     'user.apps.UserConfig',
-    'crispy_forms',
     
 ]
 

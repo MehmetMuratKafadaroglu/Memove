@@ -7,3 +7,7 @@ https://download.gisinternals.com/sdk/downloads/release-1928-x64-gdal-3-3-1-maps
 GDAL_LIBRARY_PATH = 'C:\Program Files\GDAL\gdal303.dll'
 GEOS_LIBRARY_PATH = 'C:\Program Files\GDAL\geos_c.dll'
 ----------------------------------------------------------------------------------------------
+dependecies:
+django
+folium
+pyscopg2
