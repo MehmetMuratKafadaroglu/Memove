@@ -247,7 +247,7 @@ Central Hainault to West Ruislip
 8:56 AMNewbury Park
 
 Central West Ruislip to Woodford
-7:28 AM Woodford
+7:28 AMWoodford
 7:31 AMSouth Woodford
 7:33 AMSnaresbrook
 7:37 AMLeytonstone
@@ -305,7 +305,7 @@ Circle Edgware Road to Aldgate
 8:07 AMEdgware Road
 
 Circle Aldgate to Edgware
-7:58 AMAldgate 
+7:58 AMAldgate
 8:00 AMTower Hill
 8:01 AMMonument
 8:02 AMCannon Street
@@ -415,7 +415,7 @@ District line Upminster to Kensington Olympia
 9:24 AMUpminster Bridge
 9:28 AMUpminster
 
-District line Edgware Road to Richmond
+District Edgware Road to Richmond
 8:28 AMRichmond
 8:31 AMKew Gardens
 8:35 AMGunnersbury
@@ -492,7 +492,7 @@ District line Wimbledon to Edgware
 9:01 AMWimbledon Park
 9:04 AMWimbledon
 
-District line Wimbledon to Upminister
+District Wimbledon to Upminister
 10:17 AMUpminster
 10:19 AMUpminster Bridge
 10:21 AMHornchurch
@@ -525,15 +525,15 @@ District line Wimbledon to Upminister
 11:18 AMSloane Square
 11:21 AMSouth Kensington
 11:23 AMGloucester Road
-11:31 AM Earl's Court
-11:33 AMWest Brompton
-11:35 AMFulham Broadway
-11:36 AMParsons Green
-11:38 AMPutney Bridge
-11:40 AMEast Putney
-11:43 AMSouthfields
-11:45 AMWimbledon Park
-11:49 AMWimbledon
+11:27 AMEarl's Court
+11:29 AMWest Brompton
+11:31 AMFulham Broadway
+11:32 AMParsons Green
+11:34 AMPutney Bridge
+11:36 AMEast Putney
+11:39 AMSouthfields
+11:41 AMWimbledon Park
+11:45 AMWimbledon
 
 DLR Bank to Lewisham
 8:40 AMBank DLR
@@ -611,7 +611,7 @@ DLR Beckton to Tower Gateway
 9:17 AMTower Gateway
 
 District line Hammersmith to Barking
-0:39 AMHammersmith
+10:36 AMHammersmith
 10:40 AMBarons Court
 10:42 AMWest Kensington
 10:45 AMEarl's Court
@@ -683,7 +683,7 @@ Metropolitan Amersham to Aldgate
 11:23 AMNorthwick Park
 11:26 AMPreston Road Station
 11:28 AMWembley Park
-11:35 AMFinchley Road
+11:36 AMFinchley Road
 11:41 AMBaker Street Station
 11:43 AMGreat Portland Street
 11:44 AMEuston Square
@@ -717,19 +717,7 @@ Metropolitan Chesham to Aldgate
 12:06 PMBarbican
 12:08 PMMoorgate
 12:10 PMLiverpool Street
-12:11 PMAldgate 
-
-Metropolitan Chesham to 
-11:00 AMChesham Underground Station
-11:09 AMChalfont & Latimer
-11:13 AMChorleywood
-11:18 AMRickmansworth
-11:22 AMMoor Park
-11:24 AMNorthwood
-11:28 AMNorthwood
-11:31 AMMoor Park
-11:34 AMCroxley
-11:38 AMWatford
+12:11 PMAldgate
 
 Metropolitan Uxbridge to Aldgate
 10:53 AMAldgate
@@ -789,19 +777,18 @@ Northern Battersea Power to Edgware
 11:27 AMBelsize Park
 11:28 AMChalk Farm
 11:30 AMCamden Town
-11:34 AMCamden Town
-11:35 AMMornington Crescent
-11:37 AMEuston
-11:38 AMWarren Street
-11:39 AMGoodge Street
-11:40 AMTottenham Court Road
-11:42 AMLeicester Square
-11:43 AMCharing Cross Station
-11:43 AMEmbankment Station
-11:44 AMWaterloo
-11:47 AMKennington
-11:51 AMNine Elms
-11:54 AMBattersea Power Station
+11:31 AMMornington Crescent
+11:33 AMEuston
+11:34 AMWarren Street
+11:35 AMGoodge Street
+11:36 AMTottenham Court Road
+11:38 AMLeicester Square
+11:39 AMCharing Cross Station
+11:40 AMEmbankment Station
+11:40 AMWaterloo
+11:43 AMKennington
+11:47 AMNine Elms
+11:50 AMBattersea Power Station
 
 Northern Battersea Power Station to High Barnet
 11:09 AMHigh Barnet
@@ -874,25 +861,23 @@ Northern Morden to Edgware via Charing Cross
 11:27 AMStockwell
 11:29 AMOval
 11:31 AMKennington
-11:37 AMKennington
-11:41 AMCharing Cross Station	
-11:41 AMCharing Cross Station
-11:41 AMLeicester Square
-11:42 AMTottenham Court Road
-11:44 AMGoodge Street
-11:46 AMWarren Street
-11:47 AMEuston
-11:49 AMMornington Crescent
-11:51 AMCamden Town
-11:53 AMChalk Farm
-11:55 AMBelsize Park
-11:57 AMHampstead Station
-12:02 AMGolders Green
-12:04 AMBrent Cross
-12:06 AMHendon Central
-12:09 AMColindale
-12:11 AMBurnt Oak
-12:13 AMEdgware
+11:35 AMCharing Cross Station
+11:35 AMLeicester Square
+11:36 AMTottenham Court Road
+11:38 AMGoodge Street
+11:40 AMWarren Street
+11:41 AMEuston
+11:43 AMMornington Crescent
+11:45 AMCamden Town
+11:47 AMChalk Farm
+11:49 AMBelsize Park
+11:51 AMHampstead Station
+11:56 AMGolders Green
+11:58 AMBrent Cross
+12:00 AMHendon Central
+12:03 AMColindale
+12:05 AMBurnt Oak
+12:07 AMEdgware
 
 Northern Morden to High Barnet via Bank
 11:24 AMHigh Barnet
@@ -950,18 +935,17 @@ Northern High barnet via Charing Cross
 1:36 PMEmbankment Station
 1:38 PMWaterloo
 1:41 PMKennington
-1:45 PMKennington
-1:47 PMOval
-1:49 PMStockwell
-1:52 PMClapham North
-1:54 PMClapham Common
-1:56 PMClapham South
-1:58 PMBalham
-2:00 PMTooting Bec
-2:02 PMTooting Broadway
-2:04 PMColliers Wood
-2:06 PMSouth Wimbledon
-2:08 PMMorden
+1:43 PMOval
+1:45 PMStockwell
+1:48 PMClapham North
+1:50 PMClapham Common
+1:52 PMClapham South
+1:54 PMBalham
+1:56 PMTooting Bec
+1:58 PMTooting Broadway
+2:00 PMColliers Wood
+2:02 PMSouth Wimbledon
+2:04 PMMorden
 
 Northern Morden to Mill Hill East via Charing Cross
 1:22 PMMill Hill East
@@ -982,18 +966,17 @@ Northern Morden to Mill Hill East via Charing Cross
 1:50 PMEmbankment Station
 1:52 PMWaterloo
 1:55 PMKennington
-2:00 PMKennington
-2:02 PMOval
-2:04 PMStockwell
-2:06 PMClapham North
-2:08 PMClapham Common
-2:11 PMClapham South
-2:14 PMBalham
-2:16 PMTooting Bec
-2:18 PMTooting Broadway
-2:20 PMColliers Wood
-2:22 PMSouth Wimbledon
-2:24 PMMorden
+1:57 PMOval
+1:59 PMStockwell
+2:01 PMClapham North
+2:03 PMClapham Common
+2:06 PMClapham South
+2:09 PMBalham
+2:11 PMTooting Bec
+2:13 PMTooting Broadway
+2:15 PMColliers Wood
+2:17 PMSouth Wimbledon
+2:19 PMMorden
 
 Northern Morden to Mill Hill East via Bank
 2:13 PMMill Hill East
@@ -1041,19 +1024,17 @@ TFL London Paddington to Reading
 5:07 PMHeathrow Terminal 5
 5:13 PMHeathrow Terminals 2 & 3
 5:18 PMHayes & Harlington
-5:31 PMHayes & Harlington
-5:35 PMWest Drayton
-5:38 PMIver
-5:40 PMLangley
-5:44 PMSlough
-5:48 PMBurnham
-5:51 PMTaplow
-5:54 PMMaidenhead
-6:01 PMTwyfordService
-6:13 PMReading
+5:22 PMWest Drayton
+5:26 PMIver
+5:28 PMLangley
+5:32 PMSlough
+5:36 PMBurnham
+5:39 PMTaplow
+5:42 PMMaidenhead
+5:48 PMTwyfordService
+5:54 PMReading
 
 TFL Shenfield to London Liverpool Street Stations
-
 5:12 PMLiverpool Street Station
 5:19 PMStratford
 5:21 PMMaryland
@@ -1128,7 +1109,6 @@ Tram Elmers End to Wimbledon
 2:47 PMElmers End
 
 Tram New Addington to Church Street
-
 2:10 PMNew Addington
 2:11 PMKing Henry's Drive
 2:13 PMFieldway
@@ -1160,12 +1140,11 @@ Victoria Walthamstow Central to Brixton
 2:35 PMStockwell
 2:38 PMBrixton
 
-Waterloo and City Waterloo to Bank
+Waterloo Waterloo to Bank
 12:00 Waterloo
 12:05 Bank
 
 Overground Gospel Oak to Barking
-
 7:55 PMGospel Oak
 7:58 PMUpper Holloway
 8:01 PMCrouch Hill
@@ -1181,7 +1160,6 @@ Overground Gospel Oak to Barking
 
 
 Overground Highbury & Islington to Clapham Junction Stations
-
 7:53 PMHighbury & Islington
 7:54 PMCaledonian Road & Barnsbury
 7:57 PMCamden Road
@@ -1256,7 +1234,7 @@ Overground Highbury & Islington to West Croydon
 8:58 PMPenge West
 9:00 PMAnerley
 9:03 PMNorwood Junction
-9:15 PMWest Croydon
+9:09 PMWest Croydon
 
 Overground London Euston to Watford Junction
 8:28 PMLondon Euston Station
@@ -1333,7 +1311,7 @@ Overground Romford to Upminster
 8:46 PMEmerson Park
 8:52 PMUpminster
 
-Oveground Stratford to Clapham Junction
+Overground Stratford to Clapham Junction
 9:06 PMStratford
 9:09 PMHackney Wick
 9:12 PMHomerton
@@ -1356,9 +1334,9 @@ Oveground Stratford to Clapham Junction
 9:57 PMKensington (Olympia)
 10:00 PMWest Brompton
 10:02 PMImperial Wharf
-10:11 PMClapham Junction
+10:06 PMClapham Junction
 
-Oveground Stratford to Richmond
+Overground Stratford to Richmond
 8:44 PMStratford
 8:47 PMHackney Wick
 8:50 PMHomerton
@@ -1381,4 +1359,35 @@ Oveground Stratford to Richmond
 9:35 PMSouth Acton
 9:39 PMGunnersbury
 9:42 PMKew Gardens
-9:49 PMRichmond
+9:45 PMRichmond
+
+Hammersmith Hammersmith to Barking
+10:35 AMHammersmith
+10:37 AMGoldhawk Road
+10:39 AMShepherd's Bush Market
+10:40 AMWood Lane
+10:42 AMLatimer Road
+10:43 AMLadbroke Grove
+10:45 AMWestbourne Park
+10:47 AMRoyal Oak
+10:49 AMPaddington
+10:51 AMEdgware Road
+10:54 AMBaker Street Station
+10:55 AMGreat Portland Street
+10:57 AMEuston Square
+10:59 AMKing's Cross St Pancras
+11:02 AMFarringdon
+11:03 AMBarbican
+11:06 AMMoorgate
+11:08 AMLiverpool Street
+11:13 AMAldgate East
+11:15 AMWhitechapel
+11:17 AMStepney Green Station
+11:19 AMMile End Station
+11:21 AMBow Road
+11:23 AMBromley-by-Bow
+11:25 AMWest Ham
+11:27 AMPlaistow
+11:29 AMUpton Park
+11:31 AMEast Ham Station
+11:34 AMBarking
