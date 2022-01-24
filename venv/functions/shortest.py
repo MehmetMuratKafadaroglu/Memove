@@ -8,10 +8,10 @@ def put_to_array(fetch_results):
 
     return results
 def get_station_ids():
-    conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
+    conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
     cur = conn.cursor()
 
-    query= "SELECT id FROM stations ;"
+    query= "SELECT id FROM blog_stations ;"
     cur.execute(query)
     conn.commit()
     values= cur.fetchall()
@@ -20,17 +20,17 @@ def get_station_ids():
 
 def is_same_line(*args):
     values =  []
-    for id in args:    
-        conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
+    for id in args:
+        conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
         cur = conn.cursor()
-        query= "SELECT line_id FROM stations WHERE id=%s;"
+        query= "SELECT line_id FROM blog_stations WHERE id=%s;"
         cur.execute(query, [id])
         conn.commit()
         value = cur.fetchone()
 
         if value is None:
             return False
-        
+
         else:
             value = value[0]
         values.append(value)
@@ -42,15 +42,15 @@ def is_same_line(*args):
 
 
 def get_possible_routes(origin):
-    conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
+    conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
     cur = conn.cursor()
-    query= "SELECT destination FROM times WHERE origin=%s;"
+    query= "SELECT destination FROM blog_times WHERE origin=%s;"
     cur.execute(query, [origin])
     conn.commit()
     value = cur.fetchall()
     conn.close()
     return value
-    
+
 def make_edge(origin):
     possible_routes = get_possible_routes(origin)
     possible_routes = put_to_array(possible_routes)
@@ -76,9 +76,9 @@ def get_edges():
     return edges
 
 def get_weights():
-    conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
+    conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
     cur = conn.cursor()
-    query= "SELECT origin, destination, duration FROM times;"
+    query= "SELECT origin, destination, duration FROM blog_times;"
     cur.execute(query)
     conn.commit()
     values = cur.fetchall()
@@ -93,15 +93,16 @@ def get_weights():
     return weights   
 
 def time_takes(path):
-    conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
+    conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
     duration = 0
     
     for i in range(0 ,len(path)-1):
         orig = path[i]
         dest = path[i+1]
-
+        if type(path) is str:
+            return None
         cur = conn.cursor()
-        query= "SELECT duration FROM times WHERE origin=%s AND destination=%s;"
+        query= "SELECT duration FROM blog_times WHERE origin=%s AND destination=%s;"
         cur.execute(query, [orig, dest])
         conn.commit()
         durat = cur.fetchone()
@@ -173,14 +174,15 @@ for origin in ids:
     for destination in ids:
         path = dijsktra(my_graph, origin, destination)
         duration = time_takes(path)
+        if duration is not None:
+            conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
+            cur = conn.cursor()
 
-        conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
-        cur = conn.cursor()
-
-        query= "INSERT INTO times(origin, destination, duration)VALUES(%s, %s, %s) ON CONFLICT DO NOTHING;"
-        cur.execute(query, [origin, destination, duration])
-        conn.commit()
-        conn.close()
-        print("Origin:", origin, "to: ", destination, "\n Duration: ",duration)
+            query= "INSERT INTO blog_times(origin, destination, duration)VALUES(%s, %s, %s) ON CONFLICT DO NOTHING;"
+            cur.execute(query, [origin, destination, duration])
+            conn.commit()
+            conn.close()
+            print("Origin:", origin, "to: ", destination, "\n Duration: ",duration)
 
 
+#319379

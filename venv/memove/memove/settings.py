@@ -133,7 +133,6 @@ GEOS_LIBRARY_PATH = 'C:\Program Files\GDAL\geos_c.dll'
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL= '/'

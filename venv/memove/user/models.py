@@ -3,8 +3,10 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-   are_you_an_agent = models.BooleanField(default=False)
-   address = models.CharField(max_length=250, null=True)
-   city = models.CharField(max_length=50, null=True)
-   profile_photo = models.ImageField(null=True, upload_to="user_photos")
-   postcode = models.CharField(max_length=50, null=True)
+    is_agent = models.BooleanField(default=False)
+    profile_photo = models.ImageField(null=True, upload_to="user_photos")
+    phone = models.CharField(max_length=20, null=True)
+
+    def make_agent(self):
+        self.is_agent = True
+        self.save()

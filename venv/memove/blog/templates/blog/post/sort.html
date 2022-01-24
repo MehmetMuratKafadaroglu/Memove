@@ -1,0 +1,23 @@
+<div class="sort" xmlns="http://www.w3.org/1999/html">
+<select id="sortselect">
+       <option value="closest"> Closest to the University</option>
+       <option value="low_to_high_price">Lowest Price</option>
+       <option value="high_to_low_price">Highest Price</option>
+       <option value="most_recent">Most Recent</option>
+</select><br>
+    <label for="university" > Choose your university</label>
+  <input name="location" list="options" id="university" class="location" onchange="university_filter">
+
+<datalist id="options">
+    <script src="/static/js/universities.js"></script>
+    <script>
+        var example = universities;
+        var list = document.getElementById("options");
+        example.forEach(function(item){
+            var option = document.createElement('option');
+            option.value = item;
+            list.appendChild(option);
+            })
+    </script>
+</datalist><br>
+</div>

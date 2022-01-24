@@ -38,6 +38,7 @@ Bir noktaya uzakligina gore siralamak icin
 evin istasyona uzakligi icin kullanilacak
 
 SELECT blog_boundaries.*, 
+------------------------------------------------------
 ST_Distance(ST_Transform(geom,27700),ST_Transform(ST_SetSRID( ST_Point(longitude , latitude)::geometry, 4326),27700)) 
 FROM blog_boundaries, blog_post 
 WHERE type='Railway Station' and blog_post.postcode='N22 5QY' 
@@ -165,4 +166,32 @@ UPDATE uk_railway_stations c SET county =
 pgsql2shp -f C:\mapping\shape_files -h localhost -u postgres -P 630991 test "SELECT ST_SetSRID(ST_MakePoint(latitude, longitude),4326) FROM uk_railway_stations;"
 -----------------------------------------------------------------------------------------------------------------
 ALTER SEQUENCE stations_id_seq RESTART WITH 1
-ALTER SEQUENCE times_id_seq RESTART WITH 1;
+ALTER SEQUENCE blog_nearestrailwaystations_id_seq RESTART 1;
+-----------------------------------------------------------------------------------------------------------------
+update blog_boundaries
+set postcode_id = 
+(
+select ID from blog_postcodes 
+order by ST_distance(ST_Transform(ST_SetSRID( ST_Point(longitude , latitude)::geometry, 
+4326),4326), blog_boundaries.geom) limit 1
+)
+where type='Railway Station' and postcode_id is null
+-----------------------------------------------------------------------------------------------------------------
+SELECT duration FROM blog_times WHERE origin=
+(SELECT  blog_stations.id
+FROM blog_nearestrailwaystations, blog_postcodes,blog_stations
+WHERE blog_postcodes.id = blog_nearestrailwaystations.postcode_id
+AND blog_stations.boundary_id=blog_nearestrailwaystations.boundary_id
+AND blog_nearestrailwaystations.type='Railway Station' AND postcode = 'N22 5QY'
+ ORDER BY blog_nearestrailwaystations.distance LIMIT 1
+) 
+AND destination=(SELECT 
+	  blog_stations.id
+	  FROM blog_boundaries,blog_nearestrailwaystations, blog_stations
+	  WHERE blog_boundaries.search_name='University of Greenwich' 
+	  AND blog_nearestrailwaystations.postcode_id = blog_boundaries.postcode_id
+	  AND blog_nearestrailwaystations.type='Railway Station'
+	  AND blog_stations.boundary_id=blog_nearestrailwaystations.boundary_id
+	  ORDER BY blog_nearestrailwaystations.distance LIMIT 1
+	)
+ORDER BY duration LIMIT 1

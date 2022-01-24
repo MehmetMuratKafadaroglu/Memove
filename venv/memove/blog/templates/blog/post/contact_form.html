@@ -1,0 +1,11 @@
+{% extends "blog/base.html" %}
+{% block title %} Memove{% endblock %}
+
+{% block content %}
+    <h1>Contact Us</h1>
+    <form method="POST" class="form-group" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="button">Send</button>
+    </form>
+{% endblock %}

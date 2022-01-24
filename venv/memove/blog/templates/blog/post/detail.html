@@ -2,9 +2,7 @@
 {% block title %}{{ post.title }}{% endblock %}
    {% block content %}
      <h1>{{ post.title }}</h1>
-     
-     <!-- slider starts here -->
-     <div class="slideshow-container">
+      <div class="slideshow-container">
 
       <div class="mySlides">
         <div class="numbertext">X</div>
@@ -16,7 +14,12 @@
      {% endif %}
     </div>
     {% if request.user.is_authenticated %}
-     <button type="button" id="save_button" onclick="Save()">Save</button>
+         {% if is_saved %}
+     <button type="button" id="save_button" onclick="Save()">Unsave</button>
+         {% else %}
+         <button type="button" onclick="Save()">Save</button>
+         {% endif %}
+
      <p id="warning_button">Something went wrong</p>
      {% endif %}
      {% for img in post.get_pictures %}
@@ -29,7 +32,6 @@
       <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
       <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
-    <!-- slider ends here  -->
     <div style="text-align:center">
     
     <div id="abcc"></div>
@@ -51,44 +53,15 @@
     {{ post.body|linebreaks }}
      <p>{{ post.address }} {{ post.city }} {{ post.postcode }}</p>
      <p>This property have {{ post.number_of_beds }} beds and {{ post.number_of_baths }} baths</p>
-     <p>Price of this property is {{ post.price }}£</p><br>
+     <p>Rent of this property is {{ post.rent }}£</p><br>
       <iframe src="../../static/maps/{{ post.id}}.html" class="detail_map"></iframe></br>
     </br>
-    <!--{% for i in railway_stations%}
-    <p>{{i.distance|floatformat:"0"}} Metre to {{i.search_name}} Station</p> <br>
-    {%endfor%}-->
+    {% for station in railway_stations%}
+        {% if station.is_uni %}
+    <p>{{station.get_time_takes|floatformat:"0"}} minute walk to {{station.search_name}}</p>
+        {% endif %}
+    {%endfor%}
     <br>
-    <br>
-    
-    <!--{% for i in schools%}
-    <p>{{i.distance|floatformat:"0"}} Metre to {{i.search_name}}</p> <br>
-    {%endfor%}-->
-    
-    <!--<p>{{ post.author.phone_number }}</p>-->
-      {% ifequal post.type_of_ad  'sale' %}
-      <div>
-        <form>
-            <label for="property-price">Property Price in £:</label>
-            <input type="number" id="property-price" value="{{post.price}}" ><br>
-            
-            <label for="deposit">Deposit</label>
-            <input type="number" id="deposit" value="{{post.price}}">
-
-            <label for="interest-rate">Interest Rate:</label>
-            <input type="number" id="interest-rate" value="4"><br>
-  
-            <label for="number-of-years">Number of Years:</label>
-            <input type="number" id="number-of-years" value="20"><br>
-  
-            <button type="button" onclick="mortgage_calculate()" id="calculateID">Calculate</button>
-        </form>
-        
-        <label for="payments-per-month">Payments Per Month in £</label>
-        <input type="number" id="payments-per-month"><br>
-    </div>
-    <script src="/static/js/mortgage.js"></script>
-    {% endifequal %}
-    
      {% if user.id == post.author_id %}
      <a href="{{ post.post_update_url }}" class="lnk">Edit</a>
      <a href="{{ post.property_picture_form }}" class="lnk" >Upload Pictures</a>

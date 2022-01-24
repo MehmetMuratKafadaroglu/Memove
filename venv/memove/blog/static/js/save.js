@@ -7,7 +7,7 @@ function Save()
             var save_result = JSON.parse(xhttp.responseText);
             if (save_result.code == 0)
             {
-                document.getElementById("save_button").innerHTML = "unsave" ;
+                document.getElementById("save_button").innerHTML = "Unsave" ;
             }
             else
             {

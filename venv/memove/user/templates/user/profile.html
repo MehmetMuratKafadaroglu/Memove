@@ -1,14 +1,16 @@
 {% extends "blog/base.html" %}
-{% load crispy_forms_tags %}
 
 {% block title %} Your profile {% endblock %}
 
 {% block content %}
 <h2>Your Profile</h2><br>
 <p>{{ user.username }}</p><br>
+{% if user.profile_photo%}
+<img src="../../media/{{ user.profile_photo }}" class="list_property_img">
+{% endif %}
 <p>{{ user.first_name }}{{ user.last_name }}</p><br>
 <p>{{ user.email }}</p><br>
-<a href="../user_update/" class="lnk">Update your profile</a>
+<a href="../user_update/{{ user.id }}" class="lnk">Update your profile</a>
 <a href="../../your_properties/" class="lnk">Your Properties</a>
 
 {% endblock %}

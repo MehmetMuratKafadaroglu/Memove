@@ -2,139 +2,21 @@
 {% block title %}Memove{% endblock %}
 
    {% block content %}
-    <script src="../static/js/map.js"></script>
     <img src="../../../static/icons/exit_icon.png" onclick="exitMap()" id="exit_button">
-    {% if posts.count > 0 %}
-    <a href="#" class="lnk" onclick="showFilters()" >Show Filters</a>
-    <button onclick="showMap()" id="map_button" class="button">Map </button> 
+    {% if properties.count > 0 %}
+    <button onclick="showMap()" id="map_button" class="button">Map </button>
     {% endif %}
-    <iframe id="map" class="map"></iframe>
-   {% include "pagination.html" with page=page_obj %}
-    <div id="filters" style="display: none;">
-      <label for="min_price"> Minimum price</label>
+    <iframe id='property_map' class="map"></iframe>
+    <script src="../static/js/map.js"></script>
+    {% include "pagination.html" with page=page_obj %}
+    {% include "blog/post/sort.html"%}
 
-      <select name="min_price" id="min_price">
-           <option value=0 selected>None</option>
-           <option value=10000>10000£</option>
-           <option value=25000>25000£</option>
-           <option value=50000>50000£</option>
-           <option value=75000>75000£</option>
-           <option value=100000>100000£</option>
-           <option value=150000>150000£</option>
-           <option value=200000>200000£</option>
-           <option value=250000>250000£</option>
-           <option value=300000>300000£</option>
-           <option value=350000>350000£</option>
-           <option value=400000>400000£</option>
-           <option value=450000>450000£</option>
-           <option value=500000>500000£</option>
-           <option value=550000>550000£</option>
-           <option value=600000>600000£</option>
-           <option value=650000>650000£</option>
-           <option value=700000>700000£</option>
-           <option value=750000>750000£</option>
-           <option value=800000>800000£</option>
-           <option value=850000>850000£</option>
-           <option value=900000>900000£</option>
-           <option value=950000>950000£</option>
-           <option value=1000000>1000000£</option>
-       </select>
-       
-       <label for="max_price"> Maximum price</label>
-   
-      <select name="max_price" id="max_price">
-           <option value=0>None</option>
-           <option value=10000>10000£</option>
-           <option value=25000>25000£</option>
-           <option value=50000>50000£</option>
-           <option value=75000>75000£</option>
-           <option value=100000>100000£</option>
-           <option value=150000>150000£</option>
-           <option value=200000>200000£</option>
-           <option value=250000>250000£</option>
-           <option value=300000>300000£</option>
-           <option value=350000>350000£</option>
-           <option value=400000>400000£</option>
-           <option value=450000>450000£</option>
-           <option value=500000>500000£</option>
-           <option value=550000>550000£</option>
-           <option value=600000>600000£</option>
-           <option value=650000>650000£</option>
-           <option value=700000>700000£</option>
-           <option value=750000>750000£</option>
-           <option value=800000>800000£</option>
-           <option value=850000>850000£</option>
-           <option value=900000>900000£</option>
-           <option value=950000>950000£</option>
-           <option value=1000000 selected>1000000£</option>
-       </select><br>
-   
-       <label for="min_beds"> Minimum number of beds</label>
-       <select name="min_beds" id="min_beds">
-           <option value=0>Studio</option>
-           <option value=1>1</option>
-           <option value=2>2</option>
-           <option value=3>3</option>
-           <option value=4>4</option>
-           <option value=5>5</option>
-           <option value=6>6</option>
-           <option value=7>7</option>
-           <option value=8>8</option>
-           <option value=9>9</option>
-       </select>
-   
-       <label for="max_beds"> Maximum number of beds</label>
-       <select name="max_beds" id="max_beds">
-           <option value=0>Studio</option>
-           <option value=1>1</option>
-           <option value=2>2</option>
-           <option value=3>3</option>
-           <option value=4>4</option>
-           <option value=5>5</option>
-           <option value=6>6</option>
-           <option value=7>7</option>
-           <option value=8>8</option>
-           <option value=9 selected>9</option>
-       </select><br>
-   
-       <input type="checkbox" id="house" name="house" value="house">
-       <label for="house">House</label>
-       <input type="checkbox"  id="flat" name="flat" value="flat">
-       <label for="flat">Flat</label>
-       <input type="checkbox" id="boat" name="boat" value="boat">
-       <label for="boat">Boat</label><br>
-   
-       <label for="min_baths"> Minimum number of baths</label>
-       <select name="min_baths" id="min_baths">
-           <option value=1 selected>1</option>
-           <option value=2>2</option>
-           <option value=3>3</option>
-           <option value=4>4</option>
-       </select>
-   
-       <label for="max_baths"> Maximum number of baths</label>
-       <select name="max_baths" id="max_baths">
-           <option value=1>1</option>
-           <option value=2>2</option>
-           <option value=3>3</option>
-           <option value=4 selected>4</option>
-       </select><br>
-       <button class="final_button" type="button" onclick="filter()">Find properties</button> 
-  
-     <select id="sortselect">
-       <option value="low_to_high_price">Lowest Price</option>
-       <option value="high_to_low_price">Highest Price</option>
-       <option value="most_recent">Most Recent</option>
-     </select>
 
-     <div style='position:absolute;left:0;top:0;width:100vh;height:100vh;display:none;'>
-  </div>
-  </div>
+  {% if properties.count > 0 %}
 
-  {% if posts.count > 0 %}
-  {% for post in posts %}
-
-  <div class = "postClass">
+<div id="properties">
+  {% for post in properties %}
+  <div class = "postClass" id="post-{{post.id}}">
    <div class="prop_img">
      {% if post.main_image %}
      <img src="../../media/{{ post.main_image }}" class="list_property_img">
@@ -145,18 +27,60 @@
   <div class="prop_desc">
      <h4>
       <a href="{{ post.get_absolute_url }}">
-       {{ post.number_of_beds }} beds {{ post.property_type }} in {{ post.city }} for {{post.price}}£
+       {{ post.number_of_beds }} beds for {{post.rent}} £
+          {% for pk, duration in duration.items %}
+      {%if pk == post.id%}
+        <p>{{duration}} minute takes to go {{uni}}</p>
+      {%endif%}
+    {%endfor%}
        </a>
     </h4>
     <p>{{ post.body|truncatewords:50 }}
    </p>
    </div>
    <div class = "v-space"> </div>
+      </div>
   {% endfor %}
+</div>
+
+    <script>
+    var sortcontroller = document.getElementById("sortselect");
+    var postitems= [{% for post in properties %}{"id":{{post.id}}},{% endfor %}];
+
+    function sortItemsOnSelectionValue(){
+        var strSelected = sortcontroller.options[sortcontroller.selectedIndex].value;
+        postitems.sort(function(a, b) {
+            if (strSelected=="closest")
+                return a.duration - b.duration;
+            else
+                return a.id - b.id;
+        });
+        // sort divs
+        var propContainer = document.getElementById("properties");
+        for (var i=0;i<postitems.length;i++){
+            var postdiv=document.getElementById("post-"+ postitems[i].id);
+            propContainer.appendChild(postdiv);
+        }
+    }
+
+    function setItemDuration(id,duration){
+        for (var i=0;i<postitems.length;i++)
+          if (postitems[i].id == id)
+            postitems[i].duration = duration;
+    }
+
+    {% for pk, duration in duration.items %}setItemDuration({{pk}},{{duration}});{%endfor%}
+
+    sortcontroller.onchange = sortItemsOnSelectionValue;
+    sortcontroller.value = "closest";
+    //sortcontroller.value = "most_recent";
+    sortItemsOnSelectionValue();
+   </script>
+
+
   {% else %}
   <h3>No results have been found. Please try something else</h3>
   {% endif %}
  </div>
-    
    {% endblock %}
 

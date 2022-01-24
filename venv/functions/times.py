@@ -8,6 +8,7 @@ final_array = []
 line_names = []
 carry_line_name = None
 
+
 def is_this_a_line(product):
     if not product[0]:
         name = product[1].split(' ')
@@ -15,7 +16,8 @@ def is_this_a_line(product):
             return True
     else:
         return False
-           
+
+
 def get_line_name(station):
     for product in final_array:
         if not product[0]:
@@ -25,12 +27,14 @@ def get_line_name(station):
         if product[1]==station:
             return carry_line_name 
 
+
 def is_station_in(line, station):
     line_station_in = get_line_name(station)
     if line_station_in == line:
         return True
     else:
         return False
+
 
 def detect_errors(product, line_number):
     array_length = len(product)
@@ -55,8 +59,9 @@ def detect_errors(product, line_number):
         print("In this line: %i" %line_number)
         raise ValueError("Less than three array elements")
 
+
 def insert_stations():
-    conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
+    conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
     for product in final_array:
         if is_this_a_line(product):
             current_line_name = product[1].split(' ')
@@ -64,7 +69,7 @@ def insert_stations():
         
         if not is_this_a_line(product):
             lin = current_line_name
-            query = "SELECT id FROM london_lines WHERE name=%s"
+            query = "SELECT id FROM blog_lines WHERE name=%s"
             
             cur = conn.cursor()
             cur.execute(query, [lin])
@@ -74,28 +79,26 @@ def insert_stations():
             assert line_id is not None
             
             line_id = line_id[0]
-            
-            assert line_id in range(1,16)
-            
-            #Insert the station name and id to the stations table
+
+            #Insert the station name and id to the blog_stations table
             if product[0] > 0:
                 station_name=product[1]
                 station_name = station_name.strip()
                 print("Inserting", station_name)
-                query = "INSERT INTO stations (line_id, station_name) VALUES(%s, %s) ON CONFLICT DO NOTHING"
+                query = "INSERT INTO blog_stations (line_id, station_name) VALUES(%s, %s) ON CONFLICT DO NOTHING"
                 cur.execute(query, [line_id, station_name])
                 conn.commit()
     conn.close()
 
 def insert_times():
-    conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
+    conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
     for i in range(len(final_array)):
         product = final_array[i]
         cur = conn.cursor()
         duration = product[0]
         #Get the id of the station
         if duration:
-            query = "SELECT id FROM stations WHERE station_name=%s"
+            query = "SELECT id FROM blog_stations WHERE station_name=%s"
             origin = product[1]
             origin = origin.strip('\n')
             cur.execute(query, [origin])
@@ -103,7 +106,7 @@ def insert_times():
 
             print("Origin", origin)
 
-            query = "SELECT id FROM stations WHERE station_name=%s"
+            query = "SELECT id FROM blog_stations WHERE station_name=%s"
             destination = product[2]
             destination = destination.strip('\n')
             cur.execute(query, [destination])
@@ -113,11 +116,11 @@ def insert_times():
             if destination is not None and origin is not None:
                 destination= destination[0]
                 origin = origin[0]
-                cur.execute("SELECT * FROM times WHERE origin=%s AND destination=%s AND duration=%s", [origin, destination, duration])
+                cur.execute("SELECT * FROM blog_times WHERE origin=%s AND destination=%s AND duration=%s", [origin, destination, duration])
                 val = cur.fetchone()
                 if val is None:
-                    query = "INSERT INTO times(origin, destination, duration) VALUES(%s, %s, %s) ON CONFLICT DO NOTHING"
-                    print("Origin: %s \nDestination: %s \nDuration: %s" %(origin, destination, duration))
+                    query = "INSERT INTO blog_times(origin, destination, duration) VALUES(%s, %s, %s) ON CONFLICT DO NOTHING"
+                    print("Origin: %s \nDestination: %s \nDuration: %s" %(origin, destination, duration + 1))
                     cur.execute(query, [origin, destination, duration])
             else:
                 print(product)
@@ -126,9 +129,9 @@ def insert_times():
     conn.close()
 
 def insert_transfer(station_name):
-    conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
+    conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
     cur = conn.cursor()
-    query= "SELECT id FROM stations WHERE station_name=%s ;"
+    query= "SELECT id FROM blog_stations WHERE station_name=%s ;"
     cur.execute(query, [station_name])
     conn.commit()
     val = cur.fetchall()
@@ -143,10 +146,10 @@ def insert_transfer(station_name):
             a = value_length - 1
             while a > i:
                 origin_id =  val[a][0]
-                cur.execute("SELECT * FROM times WHERE origin=%s AND destination=%s AND duration=5", [origin_id, destionation_id])
+                cur.execute("SELECT * FROM blog_times WHERE origin=%s AND destination=%s AND duration=5", [origin_id, destionation_id])
                 b = cur.fetchone()
                 if b is None:
-                    query = "INSERT INTO times(origin, destination, duration) VALUES(%s, %s, 5)"
+                    query = "INSERT INTO blog_times(origin, destination, duration) VALUES(%s, %s, 5)"
                     cur.execute(query, [origin_id, destionation_id])
                     conn.commit()
                     print('Inserting transfer from ', origin_id, "to ", destionation_id)
@@ -162,9 +165,9 @@ def put_to_array(fetch_results):
     return results
 
 def insert_in_reverse_order():
-    conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
+    conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
     cur = conn.cursor()
-    query= "SELECT origin, destination, duration FROM times ;"
+    query= "SELECT origin, destination, duration FROM blog_times ;"
     cur.execute(query)
     conn.commit()
     val = cur.fetchall()
@@ -173,36 +176,36 @@ def insert_in_reverse_order():
         origin = row[0]
         destination = row[1]
         duration = row[2]
-        cur.execute("SELECT origin, destination FROM times WHERE origin=%s AND destination=%s;", [destination, origin])
+        cur.execute("SELECT origin, destination FROM blog_times WHERE origin=%s AND destination=%s;", [destination, origin])
         conn.commit()
         output = cur.fetchall()
 
         #If there are no inserts
         if not len(output):
             print("Inserting %s, %s, %s "%(origin, destination, duration))
-            cur.execute("INSERT INTO times(origin, destination, duration) VALUES(%s, %s, %s) ON CONFLICT DO NOTHING;", [destination,origin , duration])
+            cur.execute("INSERT INTO blog_times(origin, destination, duration) VALUES(%s, %s, %s) ON CONFLICT DO NOTHING;", [destination,origin , duration])
             conn.commit()
     conn.close()
 
 
 def get_station_names():
-    conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
+    conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
     cur = conn.cursor()
-    query= "SELECT station_name FROM stations;"
+    query= "SELECT station_name FROM blog_stations;"
     cur.execute(query)
     conn.commit()
     val = cur.fetchall()
     return put_to_array(val)
 
 def truncate():
-    conn = psycopg2.connect("dbname='test' user='postgres' host='localhost' password='630991'")
+    conn = psycopg2.connect("dbname='memove' user='postgres' host='localhost' password='630991'")
     cur = conn.cursor()
     
-    query= "TRUNCATE stations CASCADE;"
+    query= "TRUNCATE blog_stations CASCADE;"
     cur.execute(query)
     conn.commit()
     
-    query= "TRUNCATE times CASCADE;"
+    query= "TRUNCATE blog_times CASCADE;"
     cur.execute(query)
     conn.commit()
 
@@ -305,9 +308,10 @@ for i in range(number_of_lines):
 file.close()
 
 
-#truncate()
+truncate()
 insert_stations()
 insert_times()
+
 #To insert Transfers
 val = get_station_names()
 for name in val:

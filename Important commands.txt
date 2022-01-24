@@ -1,4 +1,4 @@
 To move a table from one database to another
-
 pg_dump -U postgres -t <table name> <old database name> | psql -U postgres -d <new database name>
 
+pg_dump -U postgres -t uk_railway_stations test | psql -U postgres -d memove

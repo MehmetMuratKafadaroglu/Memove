@@ -1,6 +1,6 @@
 Pyhton 3.8.10
 ----------------------------------------------------------------------------------------------
-GDAL is required to work with goedjango
+GDAL is required to work with geodjango
 Where can be download is below
 https://download.gisinternals.com/sdk/downloads/release-1928-x64-gdal-3-3-1-mapserver-7-6-4/gdal-303-1928-x64-core.msi
 ----------------------------------------------------------------------------------------------
@@ -11,3 +11,4 @@ dependecies:
 django
 folium
 pyscopg2
+pillow

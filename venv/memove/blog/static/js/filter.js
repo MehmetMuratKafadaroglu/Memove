@@ -46,7 +46,7 @@ function filter()
     var boat = document.getElementById('boat').checked;
     var sle = document.getElementById('sortselect').value;
     var property_location = document.getElementById('location').value;
-    var ad_type = document.getElementById('ad_type').value;
+    var uni = document.getElementById('university').value;
     if(property_location == ""){
         alert("Please enter a location")
     }
@@ -63,41 +63,22 @@ function filter()
         + "&max_baths=" + max_baths
         + "&house=" + house
         + "&flat=" + flat
-        + "&boat=" + boat 
+        + "&boat=" + boat
         + "&sort=" + sle
         + "&location=" + property_location
-        + "&ad_type=" + ad_type
+        + "&uni=" + uni
     )
 
 }
 
-
-//url i soru isaretine gore split 
 function updateSortOrder(){
-    // 1. sortselect icinde secili olani al
-    var sle = document.getElementById('sortselect').value;
-
-    // 2. url'e gergerger=XXXX selectten gelen sort orderi ekle.
-    /*var loc = window.location.href;
-    if (loc.indexOf('?') > -1)
-        loc = loc + '&gergerger=' + sle;
-    else    
-        loc = loc + '?gergerger=' + sle;
-    window.location.href=loc
-    */
+    
+	var sle = document.getElementById('sortselect').value;
     
     var params = getParams(window.location.href);
     params['sort'] = sle;
     location.replace("?" + "agent=" + params['agent'] + "&" + "sort=" + params['sort']);
-
- //params = {'agent' : '17', 'gergerger':'id'}
 }
-
-/*{
-    'gergerger': 'nume',
-    'sort_order': 'date'
-}*/
-
 
 window.onload=updateselection;
 updateselection()
@@ -167,4 +148,3 @@ function selectChange(selectID, selectValue)
         }
     }
 }
-

@@ -1,9 +1,8 @@
-{% extends "blog/base.html" %}
-{% block title %}Memove{% endblock %}
-
-   {% block content %}
-
-   <label for="min_price"> Minimum price</label>
+<html>
+<script defer src="/static/js/filter.js"></script>
+<a href="#" class="lnk" onclick="showFilters()" >Show Filters</a>
+<div id="filters" style="display: none;">
+<label for="min_price"> Minimum price</label>
 
    <select name="min_price" id="min_price">
         <option value=0 selected>None</option>
@@ -59,7 +58,7 @@
         <option value=900000>900000£</option>
         <option value=950000>950000£</option>
         <option value=1000000 selected>1000000£</option>
-    </select>
+    </select><br>
 
     <label for="min_beds"> Minimum number of beds</label>
     <select name="min_beds" id="min_beds">
@@ -87,18 +86,12 @@
         <option value=7>7</option>
         <option value=8>8</option>
         <option value=9 selected>9</option>
-    </select>
+    </select><br>
 
-    <input type="checkbox" id="house" name="house" value="house">
-    <label for="house">House</label><br>
-    <input type="checkbox"  id="flat" name="flat" value="flat">
-    <label for="flat">Flat</label>
-    <input type="checkbox" id="boat" name="boat" value="boat">
-    <label for="boat">Boat</label>
-
-    <label for="min_baths"> Minimum number of baths</label>
+     <label for="min_baths"> Minimum number of baths</label>
     <select name="min_baths" id="min_baths">
-        <option value=1 selected>1</option>
+        <option value=0>No private toilet/bath</option>
+        <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
         <option value=4>4</option>
@@ -106,12 +99,20 @@
 
     <label for="max_baths"> Maximum number of baths</label>
     <select name="max_baths" id="max_baths">
-        <option value=1>1</option>
+        <option value=0>No private toilet/bath</option>
+        <opttoion value=1>1</opttoion>
         <option value=2>2</option>
         <option value=3>3</option>
-        <option value=4 selected>4</option>
-    </select>
-    <button class="final_button" type="button" onclick="filter()">Find properties</button> 
-<script src="../static/js/filter.js"></script>
-   {% endblock %}
+        <option value=4>4</option>
+    </select><br>
 
+    <input type="checkbox" id="house" name="house" value="house">
+    <label for="house">House</label>
+    <input type="checkbox"  id="flat" name="flat" value="flat">
+    <label for="flat">Flat</label>
+    <input type="checkbox" id="boat" name="boat" value="boat">
+    <label for="boat">Boat</label><br>
+    <div style='position:absolute;left:0;top:0;width:100vh;height:100vh;display:none;'>
+    </div>
+    </div>
+</html>
