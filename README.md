@@ -1,6 +1,5 @@
 # Student accomadation web app
 This system made for students to find accomadation and still production.<br>
-Although Server-side/Backend is ready for beta version GUI is still not ready.<br>
 The system has:<br>
               Adding, deleting, editing accomadations<br>
               Accomadation search<br>
